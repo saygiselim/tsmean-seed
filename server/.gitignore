@@ -1,26 +1,47 @@
-# OS X
-.DS_Store*
-Icon?
-._*
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
+# compiled output
+/dist
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
 
-# Linux
-.directory
-*~
+# dependencies
+/node_modules
 
-# npm
-node_modules
+# profiling files
+chrome-profiler-events.json
+speed-measure-plugin.json
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
 package-lock.json
-*.log
-*.gz
 
-
-# Coveralls
-coverage
-
-# Benchmarking
-benchmarks/graphs
+# System Files
+.DS_Store
+Thumbs.db
