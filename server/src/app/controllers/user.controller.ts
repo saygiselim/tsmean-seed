@@ -1,25 +1,40 @@
 import { Response, Request, Router } from 'express';
 
-import userSchema from '../schemas/user.schema';
+import { asyncResponse } from '../utils/async.utils';
+import { UserSchema } from '../schemas/user.schema';
 
 const router = Router();
 
-router.get('/', async (req: Request, res: Response) => {
-    const users = await userSchema.find().then();
+router.get('/', asyncResponse(async (req: Request, res: Response) => {
+    const users = await UserSchema.find().then();
 
-    res.send(users);
-});
+    res.json(users);
+}));
 
-router.post('/', (req: Request, res: Response) => {
-    const user = new userSchema(req.body);
+router.post('/', asyncResponse(async (req: Request, res: Response) => {
+    const user = new UserSchema(req.body);
 
-    user.save(err => {
-        if (err) {
-            return res.status(400).send(err);
-        }
+    await user.save();
 
-        return res.status(200).send(user);
-    });
-});
+    res.json(user);
+}));
+
+router.get('/:id', asyncResponse(async (req: Request, res: Response) => {
+    const user = await UserSchema.findById(req.params.id).then();
+
+    res.json(user);
+}));
+
+router.put('/:id', asyncResponse(async (req: Request, res: Response) => {
+    const result = await UserSchema.findByIdAndUpdate(req.params.id, req.body).then();
+
+    res.json(result);
+}));
+
+router.delete('/:id', asyncResponse(async (req: Request, res: Response) => {
+    const result = await UserSchema.findByIdAndDelete(req.params.id).then();
+
+    res.json(result);
+}));
 
 export default router;

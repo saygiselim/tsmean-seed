@@ -1,10 +1,19 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
+
+export interface UserModel extends Document {
+    email: string;
+    firstName: string;
+    lastName: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
 
 const userSchema: Schema = new Schema({
-    email: String,
-    firstName: String,
-    lastName: String,
-    createdAt: Date
+    email: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    createdAt: Date,
+    updatedAt: Date
 });
 
 userSchema.pre('save', next => {
@@ -15,4 +24,10 @@ userSchema.pre('save', next => {
     next();
 });
 
-export default model('User', userSchema);
+userSchema.pre('findByIdAndUpdate', next => {
+    this.updatedAt = new Date();
+
+    next();
+});
+
+export let UserSchema = model<UserModel>('User', userSchema);

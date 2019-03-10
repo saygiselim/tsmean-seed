@@ -1,5 +1,4 @@
 import request from 'supertest';
-import mongoose from 'mongoose';
 
 import usersController from '../src/app/controllers/user.controller';
 

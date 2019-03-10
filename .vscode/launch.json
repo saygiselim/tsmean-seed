@@ -7,14 +7,13 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Debug Server",
-            // "preLaunchTask": "typescript",
-            "program": "${workspaceFolder}/server/src/server.ts",
-            "cwd": "${workspaceFolder}",
-            "protocol": "inspector",
-            "outFiles": [
-                "${workspaceFolder}/server/dist/**/*.js"
-            ]
+            "name": "nodemon",
+            "preLaunchTask": "tswatch",
+            "runtimeExecutable": "nodemon",
+            "program": "${workspaceFolder}/server/dist/server.js",
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
         }
     ]
 }

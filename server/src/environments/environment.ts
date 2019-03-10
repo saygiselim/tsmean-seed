@@ -1,4 +1,5 @@
 export const environment = {
     production: false,
-    mongodbURI: 'mongodb://localhost:27017/example'
+    connectionURI: 'mongodb://localhost:27017/example',
+    port: 3001
 };
