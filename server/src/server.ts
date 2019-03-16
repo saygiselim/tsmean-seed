@@ -11,7 +11,7 @@ import helmet from 'helmet';
 
 import { environment } from './environments/environment';
 import controllersRouter from './app/controllers';
-import { ApiResponseModel } from './app/models/api-response.model';
+import { ApiResponseModel } from './app/models';
 
 class Server {
     readonly DIST_FOLDER = path.join(process.cwd(), 'dist');

@@ -1,8 +1,8 @@
 import { Response, Request, Router } from 'express';
 
-import { asyncResponse } from '../utils/async.utils';
-import { AuthService } from '../services/auth.service';
-import { ApiResponseModel } from '../models/api-response.model';
+import { asyncResponse } from '../utils';
+import { AuthService } from '../services';
+import { ApiResponseModel } from '../models';
 
 const router = Router();
 

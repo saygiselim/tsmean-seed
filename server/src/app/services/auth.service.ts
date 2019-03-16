@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 
 import { environment } from '../../environments/environment';
 import { UserService } from './user.service';
-import { AuthModel } from '../models/auth.model';
-import { UserModel } from '../schemas/user.schema';
+import { AuthModel } from '../models';
+import { UserModel } from '../schemas';
 
 export class AuthService {
     private readonly AUTH_PREFIX = 'Bearer ';

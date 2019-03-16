@@ -1,7 +1,7 @@
 import { Response, Request, Router } from 'express';
 
-import { asyncResponse } from '../utils/async.utils';
-import { UserService } from '../services/user.service';
+import { asyncResponse } from '../utils';
+import { UserService } from '../services';
 
 const router = Router();
 

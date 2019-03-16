@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-import { UserModel, UserSchema } from '../schemas/user.schema';
+import { UserModel, UserSchema } from '../schemas';
 
 export class UserService {
     async getUsers() {
