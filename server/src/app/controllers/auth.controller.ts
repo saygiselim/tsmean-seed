@@ -1,28 +1,23 @@
 import { Response, Request, Router } from 'express';
 
 import { asyncResponse } from '../utils/async.utils';
-import { UserSchema } from '../schemas/user.schema';
+import { AuthService } from '../services/auth.service';
+import { ApiResponseModel } from '../models/api-response.model';
 
 const router = Router();
 
+const authService = new AuthService();
+
 router.post('/signin', asyncResponse(async (req: Request, res: Response) => {
-    const user = await UserSchema.findOne({ email: req.body.email }).then();
+    const auth = await authService.signIn(req.body.email, req.body.password);
 
-    if (!user || !(await user.verifyPassword(req.body.password))) {
-        throw Error('Email or password is not valid!');
-    }
-
-    const jwt = user.generateJWT();
-
-    res.json({ token: jwt });
+    res.json(auth);
 }));
 
 router.post('/signup', asyncResponse(async (req: Request, res: Response) => {
-    const user = new UserSchema(req.body);
+    await authService.signUp(req.body);
 
-    await user.save();
-
-    res.json({ message: 'User signed up successfully' });
+    res.json(new ApiResponseModel('Signed up successfully'));
 }));
 
 export default router;

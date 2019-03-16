@@ -11,6 +11,7 @@ import helmet from 'helmet';
 
 import { environment } from './environments/environment';
 import controllersRouter from './app/controllers';
+import { ApiResponseModel } from './app/models/api-response.model';
 
 class Server {
     readonly DIST_FOLDER = path.join(process.cwd(), 'dist');
@@ -82,7 +83,7 @@ class Server {
 
     private initErrorHandlers() {
         this.express.use((err: any, req: Request, res: Response, next: NextFunction) => {
-            res.status(400).json({ message: err.message });
+            res.status(400).json(new ApiResponseModel(err.message));
             // Expressjs specific logging, catches unhandled exceptions in router
         });
 

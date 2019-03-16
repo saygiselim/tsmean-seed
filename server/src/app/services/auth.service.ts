@@ -2,9 +2,28 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { environment } from '../../environments/environment';
+import { UserService } from './user.service';
+import { AuthModel } from '../models/auth.model';
+import { UserModel } from '../schemas/user.schema';
 
 export class AuthService {
     private readonly AUTH_PREFIX = 'Bearer ';
+
+    private userService = new UserService();
+
+    async signUp(user: UserModel) {
+        return await this.userService.createUser(user);
+    }
+
+    async signIn(email: string, password: string) {
+        const user = await this.userService.getUserByEmail(email);
+
+        if (!user || !(await user.verifyPassword(password))) {
+            throw Error('Email or password is not valid!');
+        }
+
+        return new AuthModel(user.generateJWT());
+    }
 
     async checkAuthentication(req: Request, res: Response, next: NextFunction) {
         try {
@@ -34,3 +53,4 @@ export class AuthService {
         return jwt.verify(token, environment.tokenSecret);
     }
 }
+

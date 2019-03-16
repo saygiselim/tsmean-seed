@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "nodemon",
+            "name": "debug server",
             "preLaunchTask": "tswatch",
             "runtimeExecutable": "nodemon",
             "program": "${workspaceFolder}/server/dist/server.js",
