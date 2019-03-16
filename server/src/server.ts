@@ -7,6 +7,7 @@ import compression from 'compression';
 import expressValidator from 'express-validator';
 import lusca from 'lusca';
 import mongoose from 'mongoose';
+import helmet from 'helmet';
 
 import { environment } from './environments/environment';
 import controllersRouter from './app/controllers';
@@ -38,6 +39,7 @@ class Server {
     private initExpress() {
         this.express.use(compression());
         this.express.use(expressValidator());
+        this.express.use(helmet());
 
         this.express.use(lusca.xframe('SAMEORIGIN'));
         this.express.use(lusca.xssProtection(true));
@@ -67,7 +69,7 @@ class Server {
         // All regular routes
         this.express.get('*', (req, res) => {
             // this is for i18n
-            const supportedLocales = ['en', 'de', 'hu', 'cs', 'sk', 'pl'];
+            const supportedLocales = ['en'];
             const defaultLocale = 'en';
             const matches = req.url.match(/^\/([a-z]{2}(?:-[A-Z]{2})?)/);
 
@@ -80,12 +82,13 @@ class Server {
 
     private initErrorHandlers() {
         this.express.use((err: any, req: Request, res: Response, next: NextFunction) => {
-            res.status(400).send(err);
+            res.status(400).json({ message: err.message });
+            // Expressjs specific logging, catches unhandled exceptions in router
         });
 
         process.on('unhandledRejection', (reason, p) => {
             console.log('Unhandled Rejection at:', p, 'reason:', reason);
-            // Application specific logging, throwing an error, or other logic here
+            // Application specific logging, catches unhandled exceptions in node environment
         });
     }
 }

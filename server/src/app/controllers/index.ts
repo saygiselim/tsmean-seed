@@ -1,10 +1,23 @@
 import { Router } from 'express';
 
+// services
+import { AuthService } from '../services/auth.service';
+
+// controllers
+import authController from './auth.controller';
 import userController from './user.controller';
+import postController from './post.controller';
 
 const controllersRouter = Router();
 
-// controllers
+// unsecured routes
+controllersRouter.use('/auth', authController);
+
+// authentication checker
+controllersRouter.use((req, res, next) => new AuthService().checkAuthentication(req, res, next));
+
+// secured routes
 controllersRouter.use('/users', userController);
+controllersRouter.use('/users/:userId/posts', postController);
 
 export default controllersRouter;
