@@ -1,7 +1,7 @@
 import { Response, Request, Router } from 'express';
 
-import { asyncResponse } from '../utils';
-import { PostService } from '../services';
+import { asyncResponse } from '@utils/async.utils';
+import { PostService } from '@services/post.service';
 
 // this should be a nested route of users route so we have to set mergeParams true
 // parent path = users/:userId

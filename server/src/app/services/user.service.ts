@@ -1,10 +1,14 @@
 import { Schema } from 'mongoose';
 
-import { UserModel, UserSchema } from '../schemas';
+import { UserModel, UserSchema } from '@schemas/user.schema';
 
 export class UserService {
     async getUsers() {
         return await UserSchema.find().then();
+    }
+
+    async getUserByEmail(email: string) {
+        return await UserSchema.findOne({ email }).then();
     }
 
     async createUser(user: UserModel) {
@@ -17,10 +21,6 @@ export class UserService {
 
     async getUser(id: Schema.Types.ObjectId) {
         return await UserSchema.findById(id).then();
-    }
-
-    async getUserByEmail(email: string) {
-        return await UserSchema.findOne({ email }).then();
     }
 
     async updateUser(id: Schema.Types.ObjectId, user: UserModel) {

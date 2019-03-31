@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-import { PostModel, PostSchema } from '../schemas';
+import { PostModel, PostSchema } from '@schemas/post.schema';
 
 export class PostService {
     async getPosts(userId: Schema.Types.ObjectId) {

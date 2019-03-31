@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-import { environment } from '../../environments/environment';
-import { UserService } from './user.service';
-import { AuthModel } from '../models';
-import { UserModel } from '../schemas';
+import { environment } from '@environment';
+import { UserService } from '@services/user.service';
+import { AuthModel } from '@models/auth.model';
+import { UserModel } from '@schemas/user.schema';
 
 export class AuthService {
     private readonly AUTH_PREFIX = 'Bearer ';

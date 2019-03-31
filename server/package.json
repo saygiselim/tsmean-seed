@@ -1,16 +1,14 @@
 {
-  "name": "server",
+  "name": "tsmean_server",
   "version": "1.0.0",
-  "description": "",
+  "description": "An express server with mongodb",
   "scripts": {
     "start": "node dist/server.js",
-    "build": "npm run lint && tsc",
-    "debug": "concurrently --kill-others \"npm run tswatch\" \"npm run start\"",
-    "tswatch": "tsc -w",
+    "build": "npm run lint && rimraf dist && tsc",
+    "debug": "concurrently --kill-others \"tsc -w --sourceMap\" \"nodemon dist/server.js\"",
     "test": "jest --forceExit --coverage --verbose --detectOpenHandles",
     "lint": "tslint -c tslint.json -p tsconfig.json"
   },
-  "author": "saygiselim@gmail.com",
   "private": true,
   "dependencies": {
     "bcryptjs": "2.4.3",
@@ -18,7 +16,7 @@
     "ejs": "2.6.1",
     "express": "4.16.4",
     "express-validator": "5.3.1",
-    "helmet": "^3.16.0",
+    "helmet": "3.16.0",
     "jsonwebtoken": "8.5.0",
     "lusca": "1.6.1",
     "mongoose": "5.4.17",
@@ -41,6 +39,7 @@
     "concurrently": "4.1.0",
     "jest": "24.1.0",
     "nodemon": "1.18.10",
+    "rimraf": "2.6.3",
     "supertest": "3.4.2",
     "ts-jest": "24.0.0",
     "ts-node": "8.0.2",

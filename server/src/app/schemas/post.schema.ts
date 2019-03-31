@@ -4,8 +4,8 @@ export interface PostModel extends Document {
     title: string;
     content: string;
     userId: Schema.Types.ObjectId;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: number;
+    updatedAt: number;
 }
 
 const postSchema: Schema = new Schema({
@@ -16,8 +16,10 @@ const postSchema: Schema = new Schema({
     updatedAt: { type: Date, default: Date.now }
 });
 
-postSchema.pre('findByIdAndUpdate', next => {
-    this.updatedAt = new Date();
+postSchema.pre('findByIdAndUpdate', function(next) {
+    const post = this as PostModel;
+
+    post.updatedAt = Date.now();
 
     next();
 });

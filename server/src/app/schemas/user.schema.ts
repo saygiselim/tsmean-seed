@@ -2,14 +2,14 @@ import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { environment } from '../../environments/environment';
+import { environment } from '@environment';
 
 export interface UserModel extends Document {
     email: string;
     name: string;
     password: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: number;
+    updatedAt?: number;
 
     verifyPassword(password: string): Promise<boolean>;
     generateJWT(): string;
@@ -23,7 +23,7 @@ const userSchema: Schema = new Schema({
     updatedAt: { type: Date, default: Date.now }
 });
 
-userSchema.pre('save', function (next) {
+userSchema.pre('save', function(next) {
     const user = this as UserModel;
 
     bcrypt.genSalt(10, (errSalt, salt) => {
@@ -34,15 +34,15 @@ userSchema.pre('save', function (next) {
     });
 });
 
-userSchema.pre('findByIdAndUpdate', function (next) {
+userSchema.pre('findByIdAndUpdate', function(next) {
     const user = this as UserModel;
 
-    user.updatedAt = new Date();
+    user.updatedAt = Date.now();
 
     next();
 });
 
-userSchema.methods.verifyPassword = function (password: string): Promise<boolean> {
+userSchema.methods.verifyPassword = function(password: string): Promise<boolean> {
     const user = this as UserModel;
 
     return new Promise((resolve, reject) => {
@@ -56,7 +56,7 @@ userSchema.methods.verifyPassword = function (password: string): Promise<boolean
     });
 };
 
-userSchema.methods.generateJWT = function () {
+userSchema.methods.generateJWT = function() {
     const user = this as UserModel;
 
     return jwt.sign({

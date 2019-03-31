@@ -6,7 +6,7 @@
         {
             "label": "tswatch",
             "type": "shell",
-            "command": "npm run tswatch",
+            "command": "tsc -w --sourceMap",
             "isBackground": true,
             "options": {
                 "cwd": "${workspaceFolder}/server"

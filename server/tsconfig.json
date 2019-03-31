@@ -2,20 +2,41 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "target": "es2018",
+    "target": "es6",
     "strictNullChecks": true,
+    "noImplicitAny": false,
     "moduleResolution": "node",
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "./dist",
-    "baseUrl": ".",
+    "baseUrl": "src",
     "typeRoots": [
-      "node_modules/@types"
-    ]
+      "node_modules/@types/*"
+    ],
+    "types": [
+      "jest"
+    ],
+    "paths": {
+      "@environment": [
+        "environments/environment.ts"
+      ],
+      "@controllers/*": [
+        "app/controller/*"
+      ],
+      "@services/*": [
+        "app/services/*"
+      ],
+      "@models/*": [
+        "app/models/*"
+      ],
+      "@schemas/*": [
+        "app/schemas/*"
+      ],
+      "@utils/*": [
+        "app/utils/*"
+      ]
+    }
   },
   "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
+    "src/**/*"
   ]
 }
